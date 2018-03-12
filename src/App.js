@@ -2,8 +2,8 @@ import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 import Shelf from './components/shelf'
 import Search from './components/search'
-import * as BooksAPI from './BooksAPI'
 import './App.css'
+import * as BooksAPI from './BooksAPI'
 
 const book = {
   title: "To Kill a Mockingbird",
@@ -31,7 +31,19 @@ class BooksApp extends React.Component {
     super(props);
 
     this.state = {
-      myBookList: [book, book2, book3]
+      myBookList: [book, book2, book3],
+      searchResults: []
+    }
+  }
+
+  handleSearch = (query) => {
+    if(query === "") {
+      this.setState((prev) => ({ searchResults: [] }));
+    }
+    else {
+      BooksAPI.search(query).then((books) => {
+        this.setState({searchResults: !books.error ? books : [] })
+      });
     }
   }
 
@@ -44,8 +56,13 @@ class BooksApp extends React.Component {
     })
   }
 
+  componentDidMount() {
+    console.log("app - didMount");
+  }
+
   componentDidUpdate() {
-    console.log(this.state.myBookList);
+    console.log("app - didUpdate");
+    //this.setState({ searchResults: [] })
   }
   
 
@@ -53,7 +70,9 @@ class BooksApp extends React.Component {
     return (
       <BrowserRouter>
         <div className="app">
-          <Route exact path="/search" render={ Search } />
+          <Route exact path="/search" render={ () => (
+            <Search booklist={this.state.searchResults} handleSearch={this.handleSearch} />
+          ) } />
           <Route exact path="/" render={() => (
             <Shelf book={book} booklist={this.state.myBookList} addBook={this.addBook}/>
           )} />
