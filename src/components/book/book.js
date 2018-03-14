@@ -1,36 +1,36 @@
 import React from 'react'
+import BookShelfChanger from './bookShelfChanger'
 
 export default class Book extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    /*this.state = {
       status: props.book.status
-    }
+    }*/
   }
 
-  handleOnChange = () => {
-    console.log(this.state.status);
+  handleOnChange = (value) => {
+    this.props.handleShelfChange(this.props.book, value);
   }
 
   render() {
-    const { add, book } = this.props;
+    const { book } = this.props;
+    const imageUrl = 'url("'+book.imageLinks.smallThumbnail+'")';
+    /*if(book.shelf)
+      const shelf = book.shelf;
+    else
+      const shelf = "none";
+*/
+    console.log(book.title);
+    console.log(book.shelf);
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: book.coverUrl }}></div>
-          <div className="book-shelf-changer">
-            <select onChange={ this.handleOnChange } value={this.state.value}>
-              <option value="none" disabled>Move to...</option>
-              <option className="selected" value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
-            </select>
-          </div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: imageUrl }}></div>
+          <BookShelfChanger handleOnChange={this.handleOnChange} shelf={ book.shelf || "none"}/>
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">{book.authors}</div>
-        <div onClick={ () => add(book) }>Add book</div>
       </div>
     )
   }
