@@ -10,13 +10,6 @@ export default class Book extends React.Component {
   render() {
     const { book } = this.props;
     const imageUrl = 'url("'+book.imageLinks.smallThumbnail+'")';
-    /*if(book.shelf)
-      const shelf = book.shelf;
-    else
-      const shelf = "none";
-*/
-    //console.log(book.title);
-    //console.log(book.shelf);
     return (
       <div className="book">
         <div className="book-top">
