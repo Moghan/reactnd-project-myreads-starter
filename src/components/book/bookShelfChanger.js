@@ -9,6 +9,8 @@ export default class BookShelfChanger extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log("recieve props");
+    console.log(nextProps.shelf);
     this.setState({shelf: nextProps.shelf});
   }
 
@@ -19,7 +21,7 @@ export default class BookShelfChanger extends React.Component {
     //console.log(this.state.shelf);
     return (
       <div className="book-shelf-changer">
-        <select onChange={ (e) => this.props.handleOnChange(e.target.value) } value={this.state.shelf}>
+        <select onChange={ (e) => this.props.handleOnChange(e.target.value) } value={ shelf }>
           <option value="unknown" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>

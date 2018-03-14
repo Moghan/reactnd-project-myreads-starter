@@ -2,12 +2,6 @@ import React from 'react'
 import BookShelfChanger from './bookShelfChanger'
 
 export default class Book extends React.Component {
-  constructor(props) {
-    super(props);
-    /*this.state = {
-      status: props.book.status
-    }*/
-  }
 
   handleOnChange = (value) => {
     this.props.handleShelfChange(this.props.book, value);
@@ -21,8 +15,8 @@ export default class Book extends React.Component {
     else
       const shelf = "none";
 */
-    console.log(book.title);
-    console.log(book.shelf);
+    //console.log(book.title);
+    //console.log(book.shelf);
     return (
       <div className="book">
         <div className="book-top">
