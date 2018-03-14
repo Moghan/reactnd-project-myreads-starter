@@ -9,11 +9,17 @@ export default class Book extends React.Component {
 
   render() {
     const { book } = this.props;
-    const imageUrl = 'url("'+book.imageLinks.smallThumbnail+'")';
+    //const imageUrl = 'url("'+book.imageLinks.smallThumbnail+'")';
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: imageUrl }}></div>
+          <div className="book-cover"
+            style={{
+              width: 128,
+              height: 193,
+              backgroundImage: book.imageLinks ? 'url("'+book.imageLinks.smallThumbnail+'")' : "" }
+            }
+          />
           <BookShelfChanger handleOnChange={this.handleOnChange} shelf={ book.shelf || "none"}/>
         </div>
         <div className="book-title">{book.title}</div>
@@ -21,4 +27,4 @@ export default class Book extends React.Component {
       </div>
     )
   }
-};
+};// <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: imageUrl }}></div>
